@@ -1,0 +1,20 @@
+http://www.produktinfo.conrad.com/datenblaetter/1500000-1599999/001503825-an-01-de-JOY_IT_2_6__LCD_DISPLAY__16X2__GRUEN.pdf
+
+
+https://tutorials-raspberrypi.de/hd44780-lcd-display-per-i2c-mit-dem-raspberry-pi-ansteuern/
+
+sudo raspi-config
+
+sudo nano /etc/modules
+i2c-bcm2708
+i2c-dev
+
+sudo i2cdetect -y 1
+
+
+sudo apt-get install python-smbus i2c-tools
+
+
+
+http://www.forum-raspberrypi.de/Thread-c-c-i2c-mit-c-ansteuern
+
