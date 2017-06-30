@@ -53,11 +53,11 @@ class LCD {
   
     Pi2c i2c;
   
-    void strobe(void* data, int lenth);
-    void writeFourBits(void* data, lenth);
+    void strobe(char data);
+    void writeFourBits(char data);
     
-    void write(void* data, int lenth);
-    void backlight();
+    void write(char data);
+    void backlight(bool isOn=true);
     
   public:
     void display(string str);

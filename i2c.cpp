@@ -46,6 +46,10 @@ int Pi2c::i2cWrite(char *data,int length){
 	return er;
 }
 
+int Pi2c::write(char data){
+        int er = write(i2cHandle_,&data,1);
+}
+
 int Pi2c::i2cReadArduinoInt(){
 	const int arr_size = 2;
 	char tmp[arr_size]; //We know an Arduino Int is 2 Bytes.
