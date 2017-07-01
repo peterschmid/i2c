@@ -1,4 +1,5 @@
-#includ <string>
+#include <string>
+#include "i2c.h"
 
 // commands
 #define LCD_CLEARDISPLAY   0x01
@@ -47,19 +48,20 @@
 #define Rs 0b00000001 // Register select bit
 
 class LCD {
-    LDC(int addr);
+  public:
+    LCD(int addr);
     
-  private:
+//  private:
   
     Pi2c i2c;
   
     void strobe(char data);
-    void writeFourBits(char data);
+    int writeFourBits(char data);
     
-    void write(char data);
+    int write(char data, char mode =0);
     void backlight(bool isOn=true);
     
   public:
-    void display(string str);
-    void clear()
-}
+    void display(const std::string& data, unsigned int line);
+    void clear();
+};

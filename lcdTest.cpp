@@ -13,21 +13,25 @@ int main(void)
     cout << "LDC start" << endl;
     LCD lcd(0x27);
     cout << "LDC done" << endl;
-    int i = 20;
+    int i = 0;
     string text("Hello");
-    char *cstr = new char[text.length() + 1];
-    strcpy(cstr, text.c_str());
 
-    while(i > 0)
+    while(i < 20)
     {
         cout << "Display" << endl;
 
-        lcd.display(text, 1);
-        cout << "Ret = " << i << endl;
+	switch (i){ 
+            case (1): lcd.backlight(false); break;
+            case (2): lcd.backlight(true);  break;
+            case (3): lcd.display(text, 1); break;
+            case (4): lcd.display(text, 2); break;
+            case (5): lcd.clear();          break;
+        }
+
+        cout << "Loop " << i << endl;
         sleep(1);
-        i--;
+        i++;
     }
 
-    delete [] cstr;
     return 0;
 }

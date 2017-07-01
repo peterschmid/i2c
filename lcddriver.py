@@ -58,10 +58,10 @@ class lcd:
    def __init__(self):
       self.lcd_device = i2c_lib.i2c_device(ADDRESS)
 
-      self.lcd_write(0x03)
-      self.lcd_write(0x03)
-      self.lcd_write(0x03)
-      self.lcd_write(0x02)
+#      self.lcd_write(0x03)
+#      self.lcd_write(0x03)
+#      self.lcd_write(0x03)
+#      self.lcd_write(0x02)
 
       self.lcd_write(LCD_FUNCTIONSET | LCD_2LINE | LCD_5x8DOTS | LCD_4BITMODE)
       self.lcd_write(LCD_DISPLAYCONTROL | LCD_DISPLAYON)

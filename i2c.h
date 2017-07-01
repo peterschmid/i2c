@@ -48,7 +48,7 @@ class Pi2c {
 		//...Returns: Error value. > 0 is ok. < 0 means there was an error.
 		int i2cWrite(char *data,int length);
 
-                int write(char data);
+                int i2cWrite(char data);
 		
 		//Function: i2cWrite - No Parameters.
 		//...Returns: An Int value sent from the arduino, or -1 if there was an error.
