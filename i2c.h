@@ -17,11 +17,6 @@
 // Please see https://bitbucket.org/JohnnySheppard/pi2c for example usage.    //
 ////////////////////////////////////////////////////////////////////////////////
 
-#include <iostream>
-#include <linux/i2c-dev.h>
-#include <fcntl.h>    /* For O_RDWR */
-#include <unistd.h>   /* For open(), */
-#include <sys/ioctl.h>
 
 class Pi2c {
 		//Var to hold the i2c communications handle, 
@@ -48,7 +43,11 @@ class Pi2c {
 		//...Returns: Error value. > 0 is ok. < 0 means there was an error.
 		int i2cWrite(char *data,int length);
 
-                int i2cWrite(char data);
+		/**
+		 * One char write to i2c
+		 * Returns: Error value. > 0 is ok. < 0 means there was an error.
+		 */
+		int i2cWrite(char data);
 		
 		//Function: i2cWrite - No Parameters.
 		//...Returns: An Int value sent from the arduino, or -1 if there was an error.

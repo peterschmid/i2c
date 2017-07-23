@@ -10,6 +10,11 @@
 // pi2c.cpp:
 //////////////////////////////////////////////////////////////////////////////// 
 #include "i2c.h"
+#include <iostream>
+#include <linux/i2c-dev.h>
+#include <fcntl.h>    /* For O_RDWR */
+#include <unistd.h>   /* For open(), */
+#include <sys/ioctl.h>
 
 Pi2c::Pi2c(int address, bool rev0){
 	//Set up the filename of the I2C Bus. Choose appropriate bus for Raspberry Pi Rev.

@@ -1,67 +1,71 @@
 #include <string>
 #include "i2c.h"
 
-// commands
-#define LCD_CLEARDISPLAY   0x01
-#define LCD_RETURNHOME     0x02
-#define LCD_ENTRYMODESET   0x04
-#define LCD_DISPLAYCONTROL 0x08
-#define LCD_CURSORSHIFT    0x10
-#define LCD_FUNCTIONSET    0x20
-#define LCD_SETCGRAMADDR   0x40
-#define LCD_SETDDRAMADDR   0x80
-
-// flags for display entry mode
-#define LCD_ENTRYRIGHT           0x00
-#define LCD_ENTRYLEFT            0x02
-#define LCD_ENTRYSHIFTINCREMENT  0x01
-#define LCD_ENTRYSHIFTDECREMENT  0x00
-
-// flags for display on/off control
-#define LCD_DISPLAYON  0x04
-#define LCD_DISPLAYOFF 0x00
-#define LCD_CURSORON   0x02
-#define LCD_CURSOROFF  0x00
-#define LCD_BLINKON    0x01
-#define LCD_BLINKOFF   0x00
-
-// flags for display/cursor shift
-#define LCD_DISPLAYMOVE 0x08
-#define LCD_CURSORMOVE  0x00
-#define LCD_MOVERIGHT   0x04
-#define LCD_MOVELEFT    0x00
-
-// flags for function set
-#define LCD_8BITMODE  0x10
-#define LCD_4BITMODE  0x00
-#define LCD_2LINE     0x08
-#define LCD_1LINE     0x00
-#define LCD_5x10DOTS  0x04
-#define LCD_5x8DOTS   0x00
-
-// flags for backlight control
-#define LCD_BACKLIGHT   0x08
-#define LCD_NOBACKLIGHT 0x00
-
-#define En 0b00000100 // Enable bit
-#define Rw 0b00000010 // Read/Write bit
-#define Rs 0b00000001 // Register select bit
+/**
+ * This is the LCD control class, using 4bit mode
+ * There is always one Byte sent down on i2c, containing data or commands in the upper 4bits.
+ * The lower 4bit are used for D3=backlight, D2=Enable, D1=Read/Write and D0=DataInstructionSet(RS)
+ * One data or command Byte is therefore split in two writes (first upper 4bits, then lower 4bits)
+ */
 
 class LCD {
   public:
     LCD(int addr);
     
-//  private:
+  private:
   
     Pi2c i2c;
-  
-    void strobe(char data);
-    int writeFourBits(char data);
-    
-    int write(char data, char mode =0);
-    void backlight(bool isOn=true);
+    bool isBacklightOn;
+
+    /**
+     * Init the diplay, reset function for power up, set 4bit interface
+     */
+    int init();
+
+    /**
+     * Set enable pulse with right timing
+     */
+    int strobe(char data);
+
+    /**
+     * Write data char to i2c bus
+     */
+    int write(char data);
+
+    /**
+     * Writes upper 4bits (lower 4bits reserved for controls)
+     */
+    int writeUpperFourBits(char data, char mode =0);
+
+    /**
+     * Writes lower 4bits
+     */
+    int writeLowerFourBits(char data, char mode =0);
+
+    /**
+     * Write one Byte in two steps (upper and lower 4bits)
+     */
+    int writeByte(char data, char mode =0);
     
   public:
-    void display(const std::string& data, unsigned int line);
-    void clear();
+    /**
+     * Switch backlingt on
+     */
+    int backlightOn();
+
+    /**
+     * Switch backlingt off
+     */
+    int backlightOff();
+
+    /**
+     * Write string to display (if too long, tail is cut off)
+     * line = 1 (upper line), line = 2 (lower line)
+     */
+    int display(const std::string& data, unsigned int line);
+
+    /**
+     * Clear display
+     */
+    int clear();
 };
