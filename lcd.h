@@ -10,7 +10,7 @@
 
 class LCD {
   public:
-    LCD(int addr);
+    LCD(int addr, bool doInit =true);
     
   private:
   

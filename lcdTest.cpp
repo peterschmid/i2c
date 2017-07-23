@@ -42,6 +42,7 @@ int main(void)
             case (15): lcd.display(helloText, 0); break;
             case (16): lcd.display(helloText, 3); break;
             case (17): lcd.clear();          break;
+            case (18): lcd.display(helloText, 1); break;
         }
 
         sleep(1);

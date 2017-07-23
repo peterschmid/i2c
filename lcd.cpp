@@ -48,8 +48,10 @@
 #define Rw 0b00000010 // Read/Write bit
 #define Rs 0b00000001 // Register select bit
 
-LCD::LCD(int addr) : i2c(addr), isBacklightOn(true){
-    init();
+LCD::LCD(int addr, bool doInit) : i2c(addr), isBacklightOn(true){
+    if (doInit) {
+        init();
+    }
 }
 
 int LCD::init(){
